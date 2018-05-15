@@ -18,6 +18,10 @@ float getLight (vec2 uv) {
 	return texture2D(textTexture, uv).r;
 }
 
+#define lod .5
+#define frameCount 5.
+#define frame mod(floor(time/lod), frameCount)
+
 void main()	{
 	vec2 uv = vUv;
 	vec4 color = texture2D(textTexture, uv);
@@ -30,15 +34,8 @@ void main()	{
 
 	normal /= .1;
 
-
-  float lod = .5;
-  vec2 seed = vec2(floor(time*lod)/lod);
-  float count = 4.;
-  float fade = fract(time * lod / count);
-  float frame = ceil(fade * count);
-
 	// color.rg = normal * .5 + .5;
-	float a = 0.;//time * 2.;
+	float a = time * 2.;
 	vec3 light = normalize(vec3(cos(a), sin(a), sin(a+PI)*.1));
 	float shade = (dot(normal.xy, light.xy) * .5 + .5);// * (1.-smoothstep(.2,.21, length(uv - vec2(.5) - light.xy * .1)));
 
