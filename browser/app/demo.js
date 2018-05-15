@@ -29,9 +29,9 @@ export default function() {
 		});
 
 	  scenes = [
-	  	new Fire(),
+	  	// new Fire(),
 	  	new Text(),
-	  	// new Raymarch(),
+	  	new Raymarch(),
 	  ];
 
 		render = new Render();

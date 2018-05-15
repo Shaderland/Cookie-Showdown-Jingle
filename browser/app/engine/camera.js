@@ -32,7 +32,7 @@ camera.update = function(time) {
   // camera.controls.target.set(targetPosition[0], targetPosition[1], targetPosition[2]);
   uniforms.cameraPos.value = camera.position;
   uniforms.cameraTarget.value = camera.controls.target;
-  uniforms.cameraForward.value = camera.getWorldDirection();
+  uniforms.cameraForward.value = camera.target;
 }
 
 export default camera;

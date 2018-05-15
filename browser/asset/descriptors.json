@@ -34,9 +34,9 @@
 		}
 	},
 	"shaders": {
-		"raymarchRooms": {
+		"raymarching": {
 			"vertexShader": "shader/generic/screen.vert",
-			"fragmentShader": "shader/project/raymarch/rooms.frag"
+			"fragmentShader": "shader/project/raymarch/timelapse.frag"
 		},
 		"cookie": {
 			"vertexShader": "shader/project/meshes/cookie.vert",

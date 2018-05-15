@@ -8,7 +8,7 @@ export default class Raymarch extends Scene {
 
 	constructor() {
 		super('raymarchTexture');
-    this.add(new Mesh(new PlaneGeometry(1,1,1), assets.shaders.raymarchRooms));
+    this.add(new Mesh(new PlaneGeometry(1,1,1), assets.shaders.raymarching));
   }
 
 }

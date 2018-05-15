@@ -13,24 +13,24 @@ export default class Text extends Scene {
 		this.add(new THREE.Mesh(new THREE.PlaneGeometry(1,1,1), assets.shaders.text));
 		var words = [
 			{
-				text: 'CooKie',
-				font: 'rhinos_rocksregular',
+				text: 'Shader\nShowdown',
+				font: 'lobster',
 				textAlign: 'center',
 				fontSize: 196,
 				fillStyle: 'white',
 				textAlign: 'center',
 				textBaseline: 'middle',
-				width: 512,
-				height: 512,
+				width: 1024,
+				height: 1024,
 				shadowColor: 'rgba(0,0,0,.5)',
-				shadowBlur: 4,
-				offsetY: -50,
+				shadowBlur: 8,
+				offsetY: 0,
 			},
-			{
-				text: 'Demoparty',
-				fontSize: 106,
-				offsetY: 100,
-			},
+			// {
+			// 	text: 'Paris',
+			// 	fontSize: 56,
+			// 	offsetY: 100,
+			// },
 		];
 		uniforms.textTexture = { value: makeText.createTexture(words) };
 	}

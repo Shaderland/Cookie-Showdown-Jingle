@@ -20,7 +20,7 @@ void main ()	{
 	vec4 text = texture2D(textSceneTexture, uv);
 	vec4 raymarch = texture2D(raymarchTexture, uv);
 
-	vec4 color = mix(scene, text, text.a);
+	vec4 color = mix(raymarch, text, text.a);
 
 	// layers
 	// vec4 color = vec4(0);

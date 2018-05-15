@@ -1,4 +1,9 @@
+void main ()
+{
+    gl_FragColor = vec4(1);
+}
 
+/*
 uniform sampler2D sceneTexture;
 uniform sampler2D feedbackTexture;
 uniform vec2 resolution;
@@ -188,3 +193,4 @@ void main ()	{
 	color.a = length(eye-pos);
 	gl_FragColor = color;
 }
+*/
