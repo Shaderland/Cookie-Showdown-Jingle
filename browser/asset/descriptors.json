@@ -34,6 +34,10 @@
 		}
 	},
 	"shaders": {
+		"background": {
+			"vertexShader": "shader/generic/screen.vert",
+			"fragmentShader": "shader/project/filters/background.frag"
+		},
 		"raymarching": {
 			"vertexShader": "shader/generic/screen.vert",
 			"fragmentShader": "shader/project/raymarch/timelapse.frag"

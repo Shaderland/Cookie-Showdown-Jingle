@@ -18,9 +18,11 @@ float getLight (vec2 uv) {
 	return texture2D(textTexture, uv).r;
 }
 
-#define lod .5
-#define frameCount 5.
-#define frame mod(floor(time/lod), frameCount)
+#define lod 5.
+#define frameCount 4.
+// #define frameNumber 1.
+// #define frameNumber mod(floor(time/lod), frameCount)
+uniform float frameNumber;
 
 void main()	{
 	vec2 uv = vUv;
@@ -34,18 +36,23 @@ void main()	{
 
 	normal /= .1;
 
+	float a = 0.;
+
 	// color.rg = normal * .5 + .5;
-	float a = time * 2.;
-	vec3 light = normalize(vec3(cos(a), sin(a), sin(a+PI)*.1));
-	float shade = (dot(normal.xy, light.xy) * .5 + .5);// * (1.-smoothstep(.2,.21, length(uv - vec2(.5) - light.xy * .1)));
+	float shade = (dot(normal.xy, vec2(0,1)) * .5 + .5);// 
 
 	// lines
-	shade += smoothstep(.0, .1, sin(uv.x * 200. + time * 10. - uv.y * 100.)) * step(abs(frame-3.),.001);
+	shade += smoothstep(.5, .6, sin(uv.x * 100. + time * 3. - uv.y * 100.)) * step(abs(frameNumber-3.),.001);
+
+	// spot
+	// a = time * 4.;
+	// vec3 light = normalize(vec3(cos(a), sin(a), sin(a+PI)*.1));
+	// shade += (dot(normal.xy, light.xy) * .5 + .5) * (1.-smoothstep(.2,.21, length(uv - vec2(.5) - light.xy * .1)));
 
 	vec2 p = uv;
-	float radius = .02;
+	float radius = .05;
 	float shell = .001;
-	float cell = .08;
+	float cell = .2;
 	p -= .5;
 	// p *= rot(time);
 
@@ -53,32 +60,32 @@ void main()	{
 	vec2 pp = p;
 	pp.y -= sqrt(abs(pp.x*.5))*.5;
 	pp.y /= .8;
-	pp.y += .1;
-	float hr = .1 + .2 * (.5 + .5 * sin(time*8.));
-	shade += (1.-smoothstep(hr*.9,hr,length(pp))) * step(abs(frame-4.),.001);
+	pp.y += .15;
+	float hr = .1 + .2 * (.5 + .5 * sin(time*2.));
+	shade += (1.-smoothstep(hr*.9,hr,length(pp))) * step(abs(frameNumber),.001);
 
 	// rays
-	shade += smoothstep(.0, .01, sin(atan(p.y, p.x)*20. + time * 8.)) * step(abs(frame-1.),.001);
+	shade += ((smoothstep(.04,.03, length(p))) + smoothstep(.0, .01, sin(atan(p.y, p.x)*20. + time * 2.))) * step(abs(frameNumber-1.),.001);
 	p += .5;
 	vec2 ii = floor((p+cell/2.) / cell);
 	// p.y += sin(ii.x*.1 + time) * .1;
-	radius += sin(ii.x *10. + rand(ii.yy)*10. + time * 2.)*.01;
+	radius *= .6 + .4 * sin(ii.x *10. + rand(ii.yy)*10. + time * 2.);
 	p = repeat(p, cell);
 
 	// pp = p;
 	// pp.y -= sqrt(abs(pp.x*.5))*.2;
 	// pp.y /= .8;
 	// hr = .015;
-	// shade += (1.-smoothstep(hr*.9,hr,length(pp))) * step(abs(frame-4.),.001);
+	// shade += (1.-smoothstep(hr*.9,hr,length(pp))) * step(abs(frameNumber-4.),.001);
 
-	a = rng(ii) * TAU + time * 10.;
+	a = rng(ii) * TAU + time * 2.;
 	p += vec2(cos(a), sin(a)) * (cell / 2. - radius);
 
 	// circle
-	shade += (1.-smoothstep(radius, radius+shell, length(p))) * step(abs(frame-2.), .001);
+	shade += (1.-smoothstep(radius, radius+shell, length(p))) * step(abs(frameNumber-2.), .001);
 
 
-	shade = clamp(shade, 0., 1.);
+	shade = clamp(shade, 0., 1.) * .95;
 
 	color.rgb = vec3(1,0,0);
 	color.rgb += shade;

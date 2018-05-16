@@ -13,10 +13,10 @@ export default class Text extends Scene {
 		this.add(new THREE.Mesh(new THREE.PlaneGeometry(1,1,1), assets.shaders.text));
 		var words = [
 			{
-				text: 'Shader\nShowdown',
+				text: 'Cookie',
 				font: 'lobster',
 				textAlign: 'center',
-				fontSize: 196,
+				fontSize: 270,
 				fillStyle: 'white',
 				textAlign: 'center',
 				textBaseline: 'middle',
@@ -24,18 +24,29 @@ export default class Text extends Scene {
 				height: 1024,
 				shadowColor: 'rgba(0,0,0,.5)',
 				shadowBlur: 8,
+				offsetY: -170,
+			},
+			{
+				text: 'Showdown',
+				fontSize: 160,
 				offsetY: 0,
 			},
-			// {
-			// 	text: 'Paris',
-			// 	fontSize: 56,
-			// 	offsetY: 100,
-			// },
+			{
+				text: 'ponk - koltes',
+				fontSize: 160,
+				offsetY: 200,
+			},
 		];
 		uniforms.textTexture = { value: makeText.createTexture(words) };
+		uniforms.frameNumber = { value: 0. };
 	}
 
 	update(time) {
 		super.update(time);
+	}
+
+	updateText(words) {
+		uniforms.textTexture = { value: makeText.createTexture(words) };
+		uniforms.frameNumber.value += 1.;
 	}
 }

@@ -11,9 +11,10 @@ import Render from './project/render';
 import Fire from './project/scenes/Fire';
 import Text from './project/scenes/Text';
 import Raymarch from './project/scenes/Raymarch';
+import Background from './project/scenes/Background';
 
 export default function() {
-	let scenes, uniformMaps, render;
+	let scenes, uniformMaps, render, text;
 
 	assets.load(function() {
 
@@ -28,10 +29,13 @@ export default function() {
 			});
 		});
 
+		var text = new Text();
+
 	  scenes = [
 	  	// new Fire(),
-	  	new Text(),
-	  	new Raymarch(),
+	  	text,
+	  	new Background(),
+	  	// new Raymarch(),
 	  ];
 
 		render = new Render();
@@ -41,6 +45,33 @@ export default function() {
 		window.addEventListener('resize', onWindowResize, false);
 		requestAnimationFrame(animate);
 		onWindowResize();
+
+		text.updateText([
+			{
+				text: 'Cookie',
+				font: 'lobster',
+				textAlign: 'center',
+				fontSize: 270,
+				fillStyle: 'white',
+				textAlign: 'center',
+				textBaseline: 'middle',
+				width: 1024,
+				height: 1024,
+				shadowColor: 'rgba(0,0,0,.5)',
+				shadowBlur: 8,
+				offsetY: -170,
+			},
+			{
+				text: 'Showdown',
+				fontSize: 160,
+				offsetY: 0,
+			},
+			{
+				text: 'flopine - lsdlive',
+				fontSize: 160,
+				offsetY: 200,
+			},
+		]);
 	});
 
 	function animate() {
